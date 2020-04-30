@@ -7,22 +7,47 @@ Numero di rimbalzi ,
 Falli, 
 Percentuale di successo per tiri da 2 punti , 
 Percentuale di successo per  da 3 punti.
-Una volta generato il “database”, il programma deve chiedere all’utente di inserire un Codice Giocatore e il programma restituisce le statistiche. 
+Una volta generato il “database”, il programma deve chiedere all’utente di inserire un Codice Giocatore e il programma restituisce le statistiche. */
 
-Prima di tutto faccio un array che contenga una serie di lettere
-Poi faccio un for che si ripeta 3 volte e prenda 3 lettere casuali dall'array di prima
-Anche stavolta faccio un for che prenda per 3 volte tre numeri casuali .
-Poi uniamo il risultato del primo for con il secondo for e avremo ottenuto il Codice Giocatore Univoco
-Per far si che sia univoco, ogni volte che creiamo un codice lo inseriamo in un array, e facciamo girare il for finche non trova un codice univoco diverso.*/
+var lettere = "ABCDEFGHILMNOPQRSTUVZ"; //Questo serve per pescare 3 lettere randomiche per il codice giocatore univico
 
-var lettere = "ABCDEFGHILMNOPQRSTUVZ";
 
-console.log(lettere.length);
 
-for(var i = 0; i < 3; i++){
-    console.log(lettere[i]);
-    var generatore = Math.floor(Math.random() * lettere.length);
+var statisticheGiocatori = []; // Qui creiamo un array in cui inserire l'oggetto giocatoriOggetto
+
+for(var x = 0; x < 100; x++) {
+    var giocatoriOggetto = {}; // Qui creiamo un oggetto in cui inserire le statistiche
+    var codiceGiocatore = ""; //Qui è dove mettiamo il codice con la concatenazione
+    for(var i = 0; i < 3; i++){ //Questo primo for mi serve per generare tre lettere randomiche e aggiungerle a codiceGiocatore
+        var generatore = Math.floor(Math.random() * lettere.length);
+        codiceGiocatore += lettere[generatore];
+    } 
+
+    for(var counter = 0; counter < 3; counter++) { //Questo secondo for mi serve per generare tre numeri, aggiungerli a codiceGiocatore 
+        var numeriRandom = Math.floor(Math.random() * 9);
+        codiceGiocatore += numeriRandom;
+    }
+    giocatoriOggetto.giocatoreUnivoco = codiceGiocatore; //Così aggiungo il codice in un oggetto
+
+    giocatoriOggetto.puntiFatti = Math.floor(Math.random() * 30); //Qui aggiungo in giocatoriOggetto i punti fatti
+    giocatoriOggetto.numeroRimbalzi = Math.floor(Math.random() * 15); //Qui aggiungo in giocatoriOggetto i rimbalzi
+    giocatoriOggetto.falli = Math.floor(Math.random() * 10); //Qui aggiungo in giocatoriOggetto i falli
+    giocatoriOggetto.successo2Punti = Math.floor(Math.random() * 100); //Qui aggiungo in giocatoriOggetto la percentuale di successo per tiri da 2 punti
+    giocatoriOggetto.successo3Punti = Math.floor(Math.random() * 100); //Qui aggiungo in giocatoriOggetto la percentuale di successo per tiri da 3 punti
+
+    statisticheGiocatori.push(giocatoriOggetto); //Qui pusho l'oggetto all'interno dell'array statisticheGiocatori;
 
 }
 
-console.log(generatore);
+console.log(statisticheGiocatori);
+
+var richiesta = prompt("Inserisci il numero Giocatore Univoco");
+
+for(var y = 0; y < statisticheGiocatori.length; y++) { //Devo fare algoritmo di ricerca
+    if(richiesta == statisticheGiocatori[y].giocatoreUnivoco) {
+        alert(statisticheGiocatori[y].giocatoreUnivoco + " " + statisticheGiocatori[y].puntiFatti + " " + statisticheGiocatori[y].numeroRimbalzi + " " + statisticheGiocatori[y].falli + " " + statisticheGiocatori[y].successo2Punti + " " + statisticheGiocatori[y].successo3Punti)
+    }
+}
+
+
+
